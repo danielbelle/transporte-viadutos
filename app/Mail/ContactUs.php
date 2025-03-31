@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use \Illuminate\Mail\Mailables\Attachment;
 
 class ContactUs extends Mailable
 {
@@ -30,7 +31,7 @@ class ContactUs extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Us',
+            subject: 'Formulário Transporte Viadutos',
             from: new Address('2025014190@aluno.erechim.ifrs.edu.br', 'Formulário Transporte Viadutos')
         );
     }
@@ -52,6 +53,8 @@ class ContactUs extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath(public_path('attachments/attachment.pdf')),
+        ];
     }
 }
