@@ -12,14 +12,23 @@ class ContactController extends Controller
     {
         return view('contact');
     }
-    public function send(){
+    public function send()
+    {
         $data = request()->validate([
-            'name' => 'required:min3',
+            'name' => 'required|min:3',
             'email' => 'required|email',
-            'message' => 'required|min:5'
+            'docRG' => 'required|min:4',
+            'docCPF' => 'required|cpf|formato_cpf',
+            'period' => 'required|min:3', // primeiro ao décimo
+            'institution' => 'required|min:3',
+            'course' => 'required|min:3',
+            'month' => 'required|min:3',
+            'timesInMonth' => 'required|integer',
+            'city' => 'required|min:3',
+            'phone' => 'required|Celular|celular_com_codigo|celular_com_ddd',
         ]);
 
-        Mail::to('henrique.danielb@gmail.com')->send(new ContactUs($data));
+        /*Mail::to('henrique.danielb@gmail.com')->send(new ContactUs($data));*/
         return redirect()->back()->with('success', 'Email sent successfully!');
     }
 }
