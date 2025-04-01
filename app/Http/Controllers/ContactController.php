@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
@@ -12,9 +13,12 @@ class ContactController extends Controller
     {
         return view('contact');
     }
+
     public function send()
     {
-        $data = request()->validate([
+
+
+        $data = Crypt::encrypt(request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
             'docRG' => 'required|min:4',
@@ -26,8 +30,7 @@ class ContactController extends Controller
             'timesInMonth' => 'required|integer',
             'city' => 'required|min:3',
             'phone' => 'required|Celular|celular_com_codigo|celular_com_ddd',
-        ]);
-
+        ]));
         /*Mail::to('henrique.danielb@gmail.com')->send(new ContactUs($data));*/
         return redirect()->back()->with('success', 'Email sent successfully!');
     }

@@ -75,7 +75,124 @@
                 </div>
               @enderror
             </div>
+            <!--
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="docRG" class="leading-7 text-sm text-gray-600">RG</label>
+                <input type="text" id="docRG" name="docRG"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('docRG')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
 
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="docCPF" class="leading-7 text-sm text-gray-600">CPF</label>
+                <input type="text" id="docCPF" name="docCPF"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('docCPF')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="period" class="leading-7 text-sm text-gray-600">Período</label>
+                <input type="text" id="period" name="period"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('period')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="institution" class="leading-7 text-sm text-gray-600">Instituição</label>
+                <input type="text" id="institution" name="institution"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('institution')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="course" class="leading-7 text-sm text-gray-600">Curso</label>
+                <input type="text" id="course" name="course"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('course')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="month" class="leading-7 text-sm text-gray-600">Mês</label>
+                <input type="text" id="month" name="month"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('month')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="timesInMonth" class="leading-7 text-sm text-gray-600">Quantidade de vezes no mês</label>
+                <input type="number" id="timesInMonth" name="timesInMonth"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('timesInMonth')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="city" class="leading-7 text-sm text-gray-600">Cidade</label>
+                <input type="text" id="city" name="city"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('city')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+
+            <div class="p-2 w-1/3">
+              <div class="relative">
+                <label for="phone" class="leading-7 text-sm text-gray-600">Telefone</label>
+                <input type="text" id="phone" name="phone"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              </div>
+              @error('phone')
+  <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                  </div>
+@enderror
+            </div>
+             -->
 
             <div class="p-2 w-full">
               <button type="submit"
