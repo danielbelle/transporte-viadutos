@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Crypt;
+
+class InputRequest extends FormRequest
+{
+    public function rules()
+    {
+        return [
+            'input' => 'required|min:1|string',
+            /*
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'docRG' => 'required|min:4',
+            'docCPF' => 'required|cpf|formato_cpf',
+            'period' => 'required|min:3', // primeiro ao décimo
+            'institution' => 'required|min:3',
+            'course' => 'required|min:3',
+            'month' => 'required|min:3',
+            'timesInMonth' => 'required|integer',
+            'city' => 'required|min:3',
+            'phone' => 'required|Celular|celular_com_codigo|celular_com_ddd',*/
+        ];
+    }
+
+    public function getEncryptedData()
+    {
+
+        // transformar return em um foreach
+
+        return [
+            'input' => Crypt::encryptString($this->validated()['input']),
+
+            /*
+            'name' => $this->encryptAndValidate('name'),
+            'email' => $this->encryptAndValidate('email'),
+            'docRG' => $this->encryptAndValidate('docRG'),
+            'docCPF' => $this->encryptAndValidate('docCPF'),
+            'period' => $this->encryptAndValidate('period'),
+            'institution' => $this->encryptAndValidate('institution'),
+            'course' => $this->encryptAndValidate('course'),
+            'month' => $this->encryptAndValidate('month'),
+            'timesInMonth' => $this->encryptAndValidate('timesInMonth'),
+            'city' => $this->encryptAndValidate('city'),
+            'phone' => $this->encryptAndValidate('phone'),*/
+        ];
+    }
+    /*
+    private function encryptAndValidate(string $data): string
+    {
+        return Crypt::encryptString(
+            $this->validated()[$data]
+        );
+    }*/
+}

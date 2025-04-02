@@ -1,4 +1,4 @@
 @extends('layouts.main_layout')
 @section('content')
-  <x-form />
+  <x-input-form />
 @endsection

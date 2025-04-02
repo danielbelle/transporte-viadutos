@@ -17,7 +17,7 @@
         <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Formulário de auxílio transporte do município de
           Viadutos-RS para quem vai de <b>VEÍCULO PRÓPRIO</b>.</p>
       </div>
-      @include('components.form')
+      @include('components.input-form')
     </div>
   </section>
 
