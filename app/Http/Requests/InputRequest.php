@@ -10,9 +10,8 @@ class InputRequest extends FormRequest
     public function rules()
     {
         return [
-            //'input' => 'required|min:1|string',
 
-            'name' => 'required|min:3|string',
+            'name' => 'required|min:3',
             'email' => 'required|email',
             /*
             'docRG' => 'required|min:4',
@@ -33,8 +32,6 @@ class InputRequest extends FormRequest
         // transformar return em um foreach
 
         return [
-            //'input' => Crypt::encryptString($this->validated()['input']),
-
 
             'name' => $this->encryptAndValidate('name'),
             'email' => $this->encryptAndValidate('email'),
