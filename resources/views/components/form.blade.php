@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Transporte Viadutos</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body>
-  <section class="text-gray-600 body-font relative">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-col text-center w-full mb-12">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Viadutos-RS</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Formulário de auxílio transporte do município de
-          Viadutos-RS para quem vai de <b>VEÍCULO PRÓPRIO</b>.</p>
-      </div>
       @if (session()->has('success'))
         <div
           class="relative flex flex-col sm:flex-row sm:items-center bg-gray-200 dark:bg-green-700 shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 mb-3 mt-3">
@@ -61,6 +42,7 @@
                 </div>
               @enderror
             </div>
+            <!--
 
             <div class="p-2 w-1/2">
               <div class="relative">
@@ -70,12 +52,11 @@
               </div>
 
               @error('email')
-                <div class="text-red-500 text-sm mt-1">
-                  {{ $message }}
-                </div>
-              @enderror
+  <div class="text-red-500 text-sm mt-1">
+                        {{ $message }}
+                      </div>
+@enderror
             </div>
-            <!--
             <div class="p-2 w-1/3">
               <div class="relative">
                 <label for="docRG" class="leading-7 text-sm text-gray-600">RG</label>
@@ -84,8 +65,8 @@
               </div>
               @error('docRG')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -97,8 +78,8 @@
               </div>
               @error('docCPF')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -110,8 +91,8 @@
               </div>
               @error('period')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -123,8 +104,8 @@
               </div>
               @error('institution')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -136,8 +117,8 @@
               </div>
               @error('course')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -149,8 +130,8 @@
               </div>
               @error('month')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -162,8 +143,8 @@
               </div>
               @error('timesInMonth')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -175,8 +156,8 @@
               </div>
               @error('city')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
 
@@ -188,8 +169,8 @@
               </div>
               @error('phone')
   <div class="text-red-500 text-sm mt-1">
-                    {{ $message }}
-                  </div>
+                            {{ $message }}
+                          </div>
 @enderror
             </div>
              -->
@@ -202,9 +183,3 @@
           </div>
         </div>
       </form>
-    </div>
-  </section>
-
-</body>
-
-</html>
