@@ -21,11 +21,6 @@ class InputService
             // Business logic goes here
 
             $this->formatPDF($decryptedInput);
-
-            /*$fullInput = $this->formatFullInput($decryptedInput);
-            return [
-                'full_input' => $fullInput,
-            ];*/
         } catch (DecryptException $e) {
             throw new \RuntimeException('Failed to decrypt input data');
         }
@@ -54,16 +49,11 @@ class InputService
         $this->setText($pdf, $formInput);
 
         // Output the modified PDF
-        $outputPath = storage_path('app/public/attachments/modified.pdf');
+        $outputPath = storage_path('app/public/attachments/declaração -' . explode(' ', $formInput['name'])[0] . '.pdf');
         $pdf->Output($outputPath, 'F');
 
         return response()->download($outputPath);
     }
-    /*
-    protected function formatFullInput(array $data): string
-    {
-        return "{$data['name']} --- {$data['email']}";
-    }*/
 
     private function convertIso($string): string
     {
@@ -73,13 +63,21 @@ class InputService
     private function setText($pdf, array $formInput)
     {
         foreach ($this->positions as $key => $position) {
+            if ($key == 'signature' || $key == 'signatureName') {
+                $pdf->SetFont('Helvetica', 'I', 8);
+                $formInput[$key] = $formInput['name'];
+            } elseif ($key == 'month') {
+                $pdf->SetFont('Helvetica', '', 8);
+            } else {
+                $pdf->SetFont('Helvetica', 'B', 12);
+            }
             $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
             $pdf->Write(0, $this->convertIso($formInput[$key]));
         }
     }
 
     private array $positions = [
-        'name' => [37, 46],/*
+        'name' => [37, 46],
         'docRG' => [88, 56],
         'docCPF' => [35, 66],
         'course' => [30, 75],
@@ -89,21 +87,6 @@ class InputService
         'timesInMonth' => [170, 124],
         'city' => [125, 134],
         'signature' => [86, 160],
-        'signatureName' => [91, 170],*/
-    ];
-
-    private array $formInput1 = [
-        'name' => 'Daniel Henrique Bellé',/*
-        'docRG' => '8097098522',
-        'docCPF' => '024.449.020-17',
-        'period' => '1°',
-        'institution' => 'IFRS',
-        'course' => 'Análise e Desenvolvimento de Sistemas',
-        'month' => 'abril',
-        'timesInMonth' => 20,
-        'city' => 'Erechim',
-        'signature' => 'ASSINATURA',
-        'signatureName' => 'Daniel Henrique Bellé',*/
-
+        'signatureName' => [91, 170],
     ];
 }

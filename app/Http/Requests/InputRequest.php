@@ -13,16 +13,15 @@ class InputRequest extends FormRequest
 
             'name' => 'required|min:3',
             'email' => 'required|email',
-            /*
             'docRG' => 'required|min:4',
-            'docCPF' => 'required|cpf|formato_cpf',
-            'period' => 'required|min:3', // primeiro ao décimo
+            'docCPF' => 'required|cpf',
+            'period' => 'required|min:1', // primeiro ao décimo
             'institution' => 'required|min:3',
             'course' => 'required|min:3',
-            'month' => 'required|min:3',
+            'month' => 'required|min:1',
             'timesInMonth' => 'required|integer',
             'city' => 'required|min:3',
-            'phone' => 'required|Celular|celular_com_codigo|celular_com_ddd',*/
+            'phone' => 'required',
         ];
     }
 
@@ -35,7 +34,6 @@ class InputRequest extends FormRequest
 
             'name' => $this->encryptAndValidate('name'),
             'email' => $this->encryptAndValidate('email'),
-            /*
             'docRG' => $this->encryptAndValidate('docRG'),
             'docCPF' => $this->encryptAndValidate('docCPF'),
             'period' => $this->encryptAndValidate('period'),
@@ -44,7 +42,7 @@ class InputRequest extends FormRequest
             'month' => $this->encryptAndValidate('month'),
             'timesInMonth' => $this->encryptAndValidate('timesInMonth'),
             'city' => $this->encryptAndValidate('city'),
-            'phone' => $this->encryptAndValidate('phone'),*/
+            'phone' => $this->encryptAndValidate('phone'),
         ];
     }
     private function encryptAndValidate(string $data): string

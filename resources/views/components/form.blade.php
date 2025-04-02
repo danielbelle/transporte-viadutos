@@ -56,7 +56,7 @@
                   {{ $message }}
                 </div>
               @enderror
-              <!--
+
             </div>
             <div class="p-2 w-1/3">
               <div class="relative">
@@ -65,10 +65,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('docRG')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -78,10 +78,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('docCPF')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -91,10 +91,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('period')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -104,10 +104,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('institution')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -117,10 +117,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('course')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -130,10 +130,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('month')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -143,10 +143,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('timesInMonth')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -156,10 +156,10 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('city')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
 
             <div class="p-2 w-1/3">
@@ -169,20 +169,20 @@
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
               </div>
               @error('phone')
-  <div class="text-red-500 text-sm mt-1">
-                                    {{ $message }}
-                                  </div>
-@enderror
+                <div class="text-red-500 text-sm mt-1">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
-             -->
 
-              <div class="p-2 w-full">
-                <button type="submit"
-                  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Enviar</button>
-              </div>
 
+            <div class="p-2 w-full">
+              <button type="submit"
+                class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Enviar</button>
             </div>
+
           </div>
+        </div>
       </form>
       @if (session('result'))
         <div class="mt-3 alert alert-info">
