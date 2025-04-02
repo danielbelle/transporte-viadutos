@@ -10,10 +10,11 @@ class InputRequest extends FormRequest
     public function rules()
     {
         return [
-            'input' => 'required|min:1|string',
-            /*
-            'name' => 'required|min:3',
+            //'input' => 'required|min:1|string',
+
+            'name' => 'required|min:3|string',
             'email' => 'required|email',
+            /*
             'docRG' => 'required|min:4',
             'docCPF' => 'required|cpf|formato_cpf',
             'period' => 'required|min:3', // primeiro ao décimo
@@ -32,11 +33,12 @@ class InputRequest extends FormRequest
         // transformar return em um foreach
 
         return [
-            'input' => Crypt::encryptString($this->validated()['input']),
+            //'input' => Crypt::encryptString($this->validated()['input']),
 
-            /*
+
             'name' => $this->encryptAndValidate('name'),
             'email' => $this->encryptAndValidate('email'),
+            /*
             'docRG' => $this->encryptAndValidate('docRG'),
             'docCPF' => $this->encryptAndValidate('docCPF'),
             'period' => $this->encryptAndValidate('period'),
@@ -48,11 +50,10 @@ class InputRequest extends FormRequest
             'phone' => $this->encryptAndValidate('phone'),*/
         ];
     }
-    /*
     private function encryptAndValidate(string $data): string
     {
         return Crypt::encryptString(
             $this->validated()[$data]
         );
-    }*/
+    }
 }

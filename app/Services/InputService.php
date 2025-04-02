@@ -10,7 +10,11 @@ class InputService
     public function processInput(array $encryptedData)
     {
         try {
-            $decryptedInput = Crypt::decryptString($encryptedData['input']);
+            $decryptedInput = [];
+
+            foreach ($encryptedData as $key => $value) {
+                $decryptedInput[$key] = Crypt::decryptString($value);
+            }
 
             // Business logic goes here
             $fullInput = $this->formatFullInput($decryptedInput);
@@ -23,8 +27,8 @@ class InputService
         }
     }
 
-    protected function formatFullInput(string $data)
+    protected function formatFullInput(array $data): string
     {
-        return "{$data} ---1";
+        return "{$data['name']} --- {$data['email']}";
     }
 }
