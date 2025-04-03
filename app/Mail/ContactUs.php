@@ -16,13 +16,15 @@ class ContactUs extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $attachPath;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct($data, $attachPath)
     {
         $this->data = $data;
+        $this->attachPath = $attachPath;
     }
 
     /**
@@ -31,8 +33,9 @@ class ContactUs extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Formulário Transporte Viadutos',
-            from: new Address('2025014190@aluno.erechim.ifrs.edu.br', 'Formulário Transporte Viadutos')
+            subject: 'Formulário Transporte - ' . $this->data['name'] . ' - Mês: ' . $this->data['month'],
+            from: new Address('2025014190@aluno.erechim.ifrs.edu.br', 'Formulário Transporte Viadutos'),
+            cc: $this->data['email'],
         );
     }
 
@@ -43,6 +46,11 @@ class ContactUs extends Mailable
     {
         return new Content(
             markdown: 'mail.contact',
+            with: [
+                $this->data['name'],
+                $this->data['email'],
+                $this->data['month']
+            ],
         );
     }
 
@@ -53,8 +61,9 @@ class ContactUs extends Mailable
      */
     public function attachments(): array
     {
+
         return [
-            Attachment::fromPath(public_path('attachments/attachment.pdf')),
+            Attachment::fromPath($this->attachPath),
         ];
     }
 }

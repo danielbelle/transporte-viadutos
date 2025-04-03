@@ -5,7 +5,8 @@ namespace App\Services;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use setasign\Fpdi\Fpdi;
-
+use App\Mail\ContactUs;
+use Illuminate\Support\Facades\Mail;
 
 class InputService
 {
@@ -49,10 +50,13 @@ class InputService
         $this->setText($pdf, $formInput);
 
         // Output the modified PDF
-        $outputPath = storage_path('app/public/attachments/declaração -' . explode(' ', $formInput['name'])[0] . '.pdf');
+        $outputPath = storage_path('app/public/attachments/transporte-carro-' . explode(' ', $formInput['name'])[0] . '.pdf');
         $pdf->Output($outputPath, 'F');
 
-        return response()->download($outputPath);
+        response()->download($outputPath);
+
+        Mail::to($formInput['email'])->send(new ContactUs($formInput, $outputPath));
+        return redirect()->back()->with('success', 'Email enviado com sucesso!');
     }
 
     private function convertIso($string): string
