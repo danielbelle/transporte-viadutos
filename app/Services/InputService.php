@@ -50,7 +50,7 @@ class InputService
         $this->setText($pdf, $formInput);
 
         // Output the modified PDF
-        $outputPath = storage_path('app/public/attachments/transporte-carro-' . explode(' ', $formInput['name'])[0] . '.pdf');
+        $outputPath = storage_path('app/private/attachments/transporte-carro-' . explode(' ', $formInput['name'])[0] . '.pdf');
         $pdf->Output($outputPath, 'F');
 
         response()->download($outputPath);
@@ -67,17 +67,32 @@ class InputService
     private function setText($pdf, array $formInput)
     {
         foreach ($this->positions as $key => $position) {
-            if ($key == 'signature' || $key == 'signatureName') {
-                $pdf->SetFont('Helvetica', 'I', 8);
-                $formInput[$key] = $formInput['name'];
-            } elseif ($key == 'month') {
+            if ($key == 'signatureName' || $key == 'month') {
                 $pdf->SetFont('Helvetica', '', 8);
+                $key === 'signatureName' ? $formInput[$key] = $formInput['name'] : $formInput[$key] = $formInput[$key];
             } else {
                 $pdf->SetFont('Helvetica', 'B', 12);
             }
+
+            if ($key == 'sign') {
+                $this->savePadSignature($formInput[$key]);
+            }
+
             $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
             $pdf->Write(0, $this->convertIso($formInput[$key]));
         }
+    }
+
+    private function savePadSignature($padSignature)
+    {
+        $folderPath = storage_path('app/private/attachments/');
+        $image_parts = explode(";base64,", $padSignature, 1);
+
+        $image_type_aux = explode("data:image/", $image_parts[0]);
+        $image_type = $image_type_aux[0];
+        $image_base64 = base64_decode($image_parts[1]);
+        $file = $folderPath . uniqid() . '.' . $image_type;
+        return $padSignature = file_put_contents($file, $image_base64);
     }
 
     private array $positions = [
@@ -90,7 +105,7 @@ class InputService
         'month' => [101, 124],
         'timesInMonth' => [170, 124],
         'city' => [125, 134],
-        'signature' => [86, 160],
+        'sign' => [86, 160],
         'signatureName' => [91, 170],
     ];
 }

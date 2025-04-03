@@ -22,33 +22,29 @@ class InputRequest extends FormRequest
             'timesInMonth' => 'required|integer',
             'city' => 'required|min:3',
             'phone' => 'required',
+            'sign' => '',
+            'signatureName' => '',
         ];
     }
 
     public function getEncryptedData()
     {
 
-        // transformar return em um foreach
+        $arrayEncrypted = [];
 
-        return [
+        foreach ($this->rules() as $key => $value) {
+            $arrayEncrypted[$key] = $this->encryptAndValidate($key);
+        }
 
-            'name' => $this->encryptAndValidate('name'),
-            'email' => $this->encryptAndValidate('email'),
-            'docRG' => $this->encryptAndValidate('docRG'),
-            'docCPF' => $this->encryptAndValidate('docCPF'),
-            'period' => $this->encryptAndValidate('period'),
-            'institution' => $this->encryptAndValidate('institution'),
-            'course' => $this->encryptAndValidate('course'),
-            'month' => $this->encryptAndValidate('month'),
-            'timesInMonth' => $this->encryptAndValidate('timesInMonth'),
-            'city' => $this->encryptAndValidate('city'),
-            'phone' => $this->encryptAndValidate('phone'),
-        ];
+        return $arrayEncrypted;
     }
+
     private function encryptAndValidate(string $data): string
     {
-        return Crypt::encryptString(
-            $this->validated()[$data]
-        );
+        if ($data == 'sign' || $data == 'signatureName') {
+            return Crypt::encryptString($data);
+        }
+
+        return Crypt::encryptString($this->validated()[$data]);
     }
 }

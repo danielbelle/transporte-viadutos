@@ -23,11 +23,12 @@ class InputController extends Controller
 
         try {
             $result = $this->inputService->processInput($encryptedData);
-            return redirect()->back()
-                /*->with('result', "Full Input: {$result['full_input']}")*/;
+            return redirect()->back();
+            /*->with('result', "Full Input: {$result['full_input']}")*/
         } catch (\RuntimeException $e) {
-            return redirect()->back()
-                ->with('error', 'Failed to process inputs. Please try again.');
+            return redirect()->back()->withErrors([
+                'error' => 'Failed to process input data: ' . $e->getMessage(),
+            ]);
         }
     }
 }
