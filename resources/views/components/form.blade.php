@@ -29,10 +29,11 @@
   </div>
 @endif
 
-<form method="POST" action="{{ route('process.input') }}">
+<form method="POST" autocomplete="off" action="{{ route('process.input') }}">
   @csrf
 
-  <div class="lg:w-1/2 md:w-2/3 mx-auto">
+  <div class="lg:w-1/2 md:w-2/3
+  mx-auto">
     <div class="flex flex-wrap">
 
       <div class="p-2 w-1/2">
@@ -192,6 +193,18 @@
           clear-name="Limpar Assinatura" submit-name='Enviar' :disabled-without-signature="true" />
       </div>
 
+      <div class="p-2 w-1/3 hidden">
+        <div class="relative">
+          <label for="signatureName" class="leading-7 text-sm text-gray-600">signatureName</label>
+          <input type="text" id="signatureName" name="signatureName"
+            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        @error('signatureName')
+          <div class="text-red-500 text-sm mt-1">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
     </div>
 
   </div>

@@ -43,7 +43,7 @@ class InputService
         $pdf->useTemplate($templateId);
 
         // Set font and add new text
-        $pdf->SetFont('Helvetica', 'B', 12);
+        //$pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetCreator('Daniel Henrique Belle', true);
 
@@ -69,30 +69,41 @@ class InputService
         foreach ($this->positions as $key => $position) {
             if ($key == 'signatureName' || $key == 'month') {
                 $pdf->SetFont('Helvetica', '', 8);
-                $key === 'signatureName' ? $formInput[$key] = $formInput['name'] : $formInput[$key] = $formInput[$key];
+                if ($key == 'signatureName') {
+                    $formInput[$key] = $formInput['name'];
+                }
             } else {
                 $pdf->SetFont('Helvetica', 'B', 12);
             }
 
-            if ($key == 'sign') {
-                $this->savePadSignature($formInput[$key]);
-            }
 
-            $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
-            $pdf->Write(0, $this->convertIso($formInput[$key]));
+            if ($key == 'sign') {
+
+                $pdf->Image($this->savePadSignature($formInput[$key]), $position[0], $position[1], 40, 40);
+            } else {
+                $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
+                $pdf->Write(0, $this->convertIso($formInput[$key]));
+            }
         }
     }
 
     private function savePadSignature($padSignature)
     {
         $folderPath = storage_path('app/private/attachments/');
-        $image_parts = explode(";base64,", $padSignature, 1);
+        $image_parts = explode(";base64,", $padSignature);
 
         $image_type_aux = explode("data:image/", $image_parts[0]);
-        $image_type = $image_type_aux[0];
+        $image_type = $image_type_aux[1];
+
         $image_base64 = base64_decode($image_parts[1]);
         $file = $folderPath . uniqid() . '.' . $image_type;
-        return $padSignature = file_put_contents($file, $image_base64);
+
+        $padSignature = file_put_contents($file, $image_base64);
+        if ($padSignature === false) {
+            throw new \RuntimeException('Failed to save the image');
+        }
+
+        return $file;
     }
 
     private array $positions = [
@@ -105,7 +116,7 @@ class InputService
         'month' => [101, 124],
         'timesInMonth' => [170, 124],
         'city' => [125, 134],
-        'sign' => [86, 160],
+        'sign' => [86, 140],
         'signatureName' => [91, 170],
     ];
 }

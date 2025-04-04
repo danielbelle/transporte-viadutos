@@ -11,6 +11,24 @@ class InputRequest extends FormRequest
     {
         return [
 
+            'name' => 'required',
+            'email' => 'required',
+            'docRG' => 'required',
+            'docCPF' => 'required',
+            'period' => 'required', // primeiro ao décimo
+            'institution' => 'required', // verificar se algum valor n entra nulo, se n quebra programa
+            'course' => 'required',
+            'month' => 'required',
+            'timesInMonth' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'sign' => '',
+            'signatureName' => '',
+
+        ];
+        /*
+        return [
+
             'name' => 'required|min:3',
             'email' => 'required|email',
             'docRG' => 'required|min:4',
@@ -24,7 +42,7 @@ class InputRequest extends FormRequest
             'phone' => 'required',
             'sign' => '',
             'signatureName' => '',
-        ];
+        ]; */
     }
 
     public function getEncryptedData()
@@ -41,9 +59,6 @@ class InputRequest extends FormRequest
 
     private function encryptAndValidate(string $data): string
     {
-        if ($data == 'sign' || $data == 'signatureName') {
-            return Crypt::encryptString($data);
-        }
 
         return Crypt::encryptString($this->validated()[$data]);
     }
