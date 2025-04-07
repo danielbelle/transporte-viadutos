@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InputRequest;
 use App\Services\InputService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 
 class InputController extends Controller
 {
@@ -12,10 +13,11 @@ class InputController extends Controller
         protected InputService $inputService
     ) {}
 
-    public function showFormInput()
+    public function showFormInput(): View
     {
         return view('home');
     }
+
 
     public function processInput(InputRequest $request): RedirectResponse
     {
@@ -23,7 +25,8 @@ class InputController extends Controller
 
         try {
             $result = $this->inputService->processInput($encryptedData);
-            return redirect()->back();
+            //echo ('<script>console.log(' . $result['name'] . ');</script>');
+            return redirect()->route('emailPreview')->with('result', $result);
             /*->with('result', "Full Input: {$result['full_input']}")*/
         } catch (\RuntimeException $e) {
             return redirect()->back()->withErrors([

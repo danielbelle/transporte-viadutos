@@ -12,6 +12,7 @@ class InputService
 {
     public function processInput(array $encryptedData)
     {
+        $processResult = '';
         try {
             $decryptedInput = [];
 
@@ -21,13 +22,11 @@ class InputService
 
             // Business logic goes here
 
-
-
-
-            $this->formatPDF($decryptedInput);
+            $processResult = $this->formatPDF($decryptedInput);
         } catch (DecryptException $e) {
             throw new \RuntimeException('Failed to decrypt input data');
         }
+        return $processResult;
     }
 
     protected function formatPDF($formInput)
@@ -67,7 +66,7 @@ class InputService
         }
 
         Mail::to($formInput['email'])->send(new ContactUs($formInput, $outputPath, $inputDocumentPath));
-        return redirect()->back()->with('success', 'Email enviado com sucesso!');
+        return $formInput;
     }
 
     private function convertIso($string): string
