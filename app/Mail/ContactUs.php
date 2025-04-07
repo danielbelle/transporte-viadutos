@@ -16,15 +16,17 @@ class ContactUs extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
-    public $attachPath;
+    public $attachSigned;
+    public $attachCollege;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data, $attachPath)
+    public function __construct($data, $attachSigned, $attachCollege)
     {
         $this->data = $data;
-        $this->attachPath = $attachPath;
+        $this->attachSigned = $attachSigned;
+        $this->attachCollege = $attachCollege;
     }
 
     /**
@@ -63,7 +65,8 @@ class ContactUs extends Mailable
     {
 
         return [
-            Attachment::fromPath($this->attachPath),
+            Attachment::fromPath($this->attachSigned),
+            Attachment::fromPath($this->attachCollege),
         ];
     }
 }

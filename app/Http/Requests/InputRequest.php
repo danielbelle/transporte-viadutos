@@ -15,7 +15,7 @@ class InputRequest extends FormRequest
             'email' => 'required',
             'docRG' => 'required',
             'docCPF' => 'required',
-            'period' => 'required', // primeiro ao décimo
+            'period' => 'required', // matutino, vespertino, noturno, integral
             'institution' => 'required', // verificar se algum valor n entra nulo, se n quebra programa
             'course' => 'required',
             'month' => 'required',
@@ -24,6 +24,7 @@ class InputRequest extends FormRequest
             'phone' => 'required',
             'sign' => '',
             'signatureName' => '',
+            'inputDocument' => '', // 10MB
 
         ];
         /*
@@ -33,8 +34,8 @@ class InputRequest extends FormRequest
             'email' => 'required|email',
             'docRG' => 'required|min:4',
             'docCPF' => 'required|cpf',
-            'period' => 'required|min:1', // primeiro ao décimo
-            'institution' => 'required|min:3',
+            'period' => 'required|min:1', // matutino, vespertino, noturno, integral
+            'institution' => 'required|min:3', // verificar se algum valor n entra nulo, se n quebra programa
             'course' => 'required|min:3',
             'month' => 'required|min:1',
             'timesInMonth' => 'required|integer',
@@ -42,6 +43,7 @@ class InputRequest extends FormRequest
             'phone' => 'required',
             'sign' => '',
             'signatureName' => '',
+            'inputDocument' => 'required|mimes:pdf|max:10240', // 10MB
         ]; */
     }
 

@@ -21,6 +21,9 @@ class InputService
 
             // Business logic goes here
 
+
+
+
             $this->formatPDF($decryptedInput);
         } catch (DecryptException $e) {
             throw new \RuntimeException('Failed to decrypt input data');
@@ -55,7 +58,15 @@ class InputService
 
         response()->download($outputPath);
 
-        Mail::to($formInput['email'])->send(new ContactUs($formInput, $outputPath));
+
+        // get and save inputDocument
+        if (isset($formInput['inputDocument'])) {
+            $inputDocument = $formInput['inputDocument'];
+            $inputDocumentPath = storage_path('app/private/attachments/comprovante-presença-' . explode(' ', $formInput['name'])[0] . '.pdf');
+            file_put_contents($inputDocumentPath, base64_decode($inputDocument));
+        }
+
+        Mail::to($formInput['email'])->send(new ContactUs($formInput, $outputPath, $inputDocumentPath));
         return redirect()->back()->with('success', 'Email enviado com sucesso!');
     }
 
@@ -78,7 +89,6 @@ class InputService
 
 
             if ($key == 'sign') {
-
                 $pdf->Image($this->savePadSignature($formInput[$key]), $position[0], $position[1], 40, 40);
             } else {
                 $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)

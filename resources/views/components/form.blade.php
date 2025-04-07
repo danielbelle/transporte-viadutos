@@ -32,14 +32,14 @@
 <form method="POST" autocomplete="off" action="{{ route('process.input') }}">
   @csrf
 
-  <div class="lg:w-1/2 md:w-2/3
+  <div class="lg:w-100 md:w-2/3
   mx-auto">
     <div class="flex flex-wrap">
 
-      <div class="p-2 w-1/2">
+      <div class="p-2 w-1/3">
         <div class="relative">
           <label for="name" class="leading-7 text-sm text-gray-600">Nome completo</label>
-          <input type="text" id="name" name="name"
+          <input type="text" id="name" name="name" autocomplete="name"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
         @error('name')
@@ -49,10 +49,10 @@
         @enderror
       </div>
 
-      <div class="p-2 w-1/2">
+      <div class="p-2 w-1/3">
         <div class="relative">
           <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-          <input type="email" id="email" name="email"
+          <input type="email" id="email" name="email" autocomplete="email"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
 
@@ -158,7 +158,7 @@
       <div class="p-2 w-1/3">
         <div class="relative">
           <label for="city" class="leading-7 text-sm text-gray-600">Cidade</label>
-          <input type="text" id="city" name="city"
+          <input type="text" id="city" name="city" autocomplete="city"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
         @error('city')
@@ -171,7 +171,7 @@
       <div class="p-2 w-1/3">
         <div class="relative">
           <label for="phone" class="leading-7 text-sm text-gray-600">Telefone</label>
-          <input type="text" id="phone" name="phone"
+          <input type="text" id="phone" name="phone" autocomplete="phone"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
         @error('phone')
@@ -181,14 +181,28 @@
         @enderror
       </div>
 
-      <div class="p-2">
+      <div class="p-2 w-1/3">
+        <div class="relative">
+          <label for="inputDocument" class="leading-7 text-sm text-gray-600">Comprovante de presença</label>
+          <input type="file" name="inputDocument"
+            class="w-full text-sm bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        @error('inputDocument')
+          <div class="text-red-500 text-sm mt-1">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
+
+      <div class="p-2 w-100">
         @error('sign')
           <div class="text-red-500 text-sm mt-1">
             {{ $message }}
           </div>
         @enderror
+        <p class="leading-7 text-sm text-gray-600">Desenhe a sua assinatura com o mouse</p>
         <x-creagia-signature-pad id='sign' name='sign' border-color="#9a9a9a"
-          pad-classes="rounded-xl border-2 bg-transparent"
+          pad-classes="rounded-xl border-2 bg-transparent sm:w-100 sm:h-100"
           button-classes="py-2 mt-4 mx-auto text-white bg-indigo-500 border-0 px-4 focus:outline-none hover:bg-indigo-600 rounded text-md"
           clear-name="Limpar Assinatura" submit-name='Enviar' :disabled-without-signature="true" />
       </div>
@@ -205,9 +219,8 @@
           </div>
         @enderror
       </div>
-    </div>
 
-  </div>
+    </div>
   </div>
 
 </form>
