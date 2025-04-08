@@ -88,7 +88,7 @@ class InputService
 
 
             if ($key == 'sign') {
-                $pdf->Image($this->savePadSignature($formInput[$key]), $position[0], $position[1], 40, 40);
+                $pdf->Image($this->savePadSignature($formInput[$key], $formInput['name']), $position[0], $position[1], 40, 40);
             } else {
                 $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
                 $pdf->Write(0, $this->convertIso($formInput[$key]));
@@ -96,7 +96,7 @@ class InputService
         }
     }
 
-    private function savePadSignature($padSignature)
+    private function savePadSignature($padSignature, $name)
     {
         $folderPath = storage_path('app/private/attachments/');
         $image_parts = explode(";base64,", $padSignature);
@@ -105,7 +105,7 @@ class InputService
         $image_type = $image_type_aux[1];
 
         $image_base64 = base64_decode($image_parts[1]);
-        $file = $folderPath . uniqid() . '.' . $image_type;
+        $file = $folderPath . $name . '-assinatura.' . $image_type;
 
         $padSignature = file_put_contents($file, $image_base64);
         if ($padSignature === false) {

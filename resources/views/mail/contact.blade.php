@@ -1,6 +1,6 @@
 <x-mail::message>
 
-  Olá, equipe da Prefeitura Municipal de Viadutos!<br>
+  Olá, equipe da Prefeitura Municipal de Viadutos.<br>
 
   Este é um e-mail preenchido automaticamente pelo(a)
   estudante(a): <strong>{{ $data['name'] }}</strong>. <br>
@@ -11,7 +11,7 @@
 
   Uma cópia deste e-mail foi enviada para o(a) estudante(a)
   e/ou aos responsáveis no endereço eletrônico a seguir: <br>
-  <strong>Email:</strong> {{ $data['email'] }} <br>
+  Email: <strong>{{ $data['email'] }} </strong> <br>
 
 
   <x-mail::button :url="'https://www.google.com.br/?hl=pt-BR'">

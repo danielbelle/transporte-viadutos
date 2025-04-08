@@ -158,7 +158,7 @@
       <div class="p-2 w-1/3">
         <div class="relative">
           <label for="city" class="leading-7 text-sm text-gray-600">Cidade</label>
-          <input type="text" id="city" name="city" autocomplete="city"
+          <input type="text" id="city" name="city"
             class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
         @error('city')
@@ -183,9 +183,17 @@
 
       <div class="p-2 w-1/3">
         <div class="relative">
-          <label for="inputDocument" class="leading-7 text-sm text-gray-600">Comprovante de presença</label>
-          <input type="file" name="inputDocument"
-            class="w-full text-sm bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 mr-2 fill-gray inline" viewBox="0 0 32 32">
+            <path
+              d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+              data-original="#000000" />
+            <path
+              d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+              data-original="#000000" />
+          </svg>
+          <label for="inputDocument" class="leading-7 text-sm text-gray-600">Doc. Presença</label>
+          <input type="file" id="inputDocument" name="inputDocument"
+            class="w-full file:cursor-pointer text-xs bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out cursor-pointer focus:cursor-pointer">
         </div>
         @error('inputDocument')
           <div class="text-red-500 text-sm mt-1">
