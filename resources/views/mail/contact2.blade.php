@@ -32,7 +32,7 @@
               estudante(a):
               <strong>
                 @if (session('result'))
-                  value="{{ $data['result.name'] }}"
+                  {{ session('result.name') }}
                 @endif
               </strong>.
             </p>
@@ -46,13 +46,14 @@
               Email:
               <strong>
                 @if (session('result'))
-                  value="{{ $data['result.name'] }}"
+                  {{ 'result.email' }}
                 @endif
               </strong>.
             </p>
 
-            <p>Atenciosamente, @if (session('result'))
-                value="{{ $data['result.name'] }}"
+            <p>Atenciosamente,
+              @if (session('result'))
+                {{ 'result.name' }}
               @endif
               .
             </p>
@@ -65,7 +66,74 @@
         <p class="lg:w-2/3 mx-auto leading-relaxed text-base mb-4">Deseja baixar os documentos e a
           sua assinatura?
         </p>
+        <div class="container mx-auto px-4 py-8">
+          <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6">
+              <h1 class="text-2xl font-bold text-gray-800 mb-6">Visualização de Documento</h1>
 
+              <div class="flex flex-col md:flex-row gap-8">
+                <!-- Área da Imagem -->
+                <div class="w-full md:w-1/2">
+                  <h2 class="text-lg font-semibold text-gray-700 mb-3">Visualização</h2>
+                  <div
+                    class="border-2 border-gray-200 rounded-lg p-4 flex justify-center items-center bg-gray-50">
+                    @if (session('result'))
+                      <img
+                        src="{{ URL::temporarySignedRoute(
+                            'private.image',
+                            now()->addHours(1), // Link válido por 2 horas
+                            ['filename' => session('result.sign')],
+                        ) }}"
+                        alt="Assinatura" class="max-w-full h-auto rounded-lg shadow-md">
+                    @else
+                      <p class="text-gray-500">Nenhuma imagem disponível</p>
+                    @endif
+                  </div>
+                </div>
+
+                <!-- Área de Download -->
+                <div class="w-full md:w-1/2">
+                  <h2 class="text-lg font-semibold text-gray-700 mb-3">Arquivo para Download</h2>
+                  <div class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50">
+                    <div class="flex flex-col items-center justify-center h-full">
+
+                      <p class="text-gray-600 mb-4 text-center">
+                        Clique no botão abaixo para baixar o documento
+                      </p>
+
+                      @if (session('result'))
+                        class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2"
+                          viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd"
+                            d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                        </svg>
+                        Baixar Documento
+                        </a>
+                        <p class="text-sm text-gray-500 mt-2">
+                          Tamanho:
+
+                          KB
+                        </p>
+                      @else
+                        <p class="text-red-500">Arquivo não disponível para download</p>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botão Voltar -->
+              <div class="mt-8">
+                <a href="{{ route('input.form') }}"
+                  class="text-blue-600 hover:text-blue-800 font-medium">
+                  &larr; Voltar para a lista
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
 

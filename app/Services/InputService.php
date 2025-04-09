@@ -7,6 +7,9 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use setasign\Fpdi\Fpdi;
 use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class InputService
 {
@@ -26,10 +29,11 @@ class InputService
         } catch (DecryptException $e) {
             throw new \RuntimeException('Failed to decrypt input data');
         }
+
         return $processResult;
     }
 
-    protected function formatPDF($formInput)
+    protected function formatPDF($decryptedInput)
     {
         // Initialize FPDI
         $pdf = new Fpdi();
@@ -49,38 +53,39 @@ class InputService
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetCreator('Daniel Henrique Belle', true);
 
-        $this->setText($pdf, $formInput);
+        $decryptedInput['sign'] = $this->setText($pdf, $decryptedInput);
 
         // Output the modified PDF
-        $outputPath = storage_path('app/private/attachments/transporte-carro-' . explode(' ', $formInput['name'])[0] . '.pdf');
+        $outputPath = storage_path('app/private/attachments/transporte-carro-' . explode(' ', $decryptedInput['name'])[0] . '.pdf');
         $pdf->Output($outputPath, 'F');
 
         response()->download($outputPath);
 
 
         // get and save inputDocument
-        if (isset($formInput['inputDocument'])) {
-            $inputDocument = $formInput['inputDocument'];
-            $inputDocumentPath = storage_path('app/private/attachments/comprovante-presença-' . explode(' ', $formInput['name'])[0] . '.pdf');
+        if (isset($decryptedInput['inputDocument'])) {
+            $inputDocument = $decryptedInput['inputDocument'];
+            $inputDocumentAux = 'app/private/attachments/comprovante-presença-' . explode(' ', $decryptedInput['name'])[0] . '.pdf';
+            $inputDocumentPath = storage_path($inputDocumentAux);
+            $decryptedInput['inputDocument'] = $inputDocumentAux;
             file_put_contents($inputDocumentPath, base64_decode($inputDocument));
         }
 
-        Mail::to($formInput['email'])->send(new ContactUs($formInput, $outputPath, $inputDocumentPath));
-        return $formInput;
+        //Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
+
+        $processResult = $decryptedInput;
+
+        return $processResult;
     }
 
-    private function convertIso($string): string
-    {
-        return iconv(mb_detect_encoding($string, mb_detect_order(), true), "ISO-8859-1", $string);
-    }
 
-    private function setText($pdf, array $formInput)
+    private function setText($pdf, array $decryptedInput)
     {
-        foreach ($this->positions as $key => $position) {
+        foreach ($this->PDFpositions as $key => $position) {
             if ($key == 'signatureName' || $key == 'month') {
                 $pdf->SetFont('Helvetica', '', 8);
                 if ($key == 'signatureName') {
-                    $formInput[$key] = $formInput['name'];
+                    $decryptedInput[$key] = $decryptedInput['name'];
                 }
             } else {
                 $pdf->SetFont('Helvetica', 'B', 12);
@@ -88,34 +93,63 @@ class InputService
 
 
             if ($key == 'sign') {
-                $pdf->Image($this->savePadSignature($formInput[$key], $formInput['name']), $position[0], $position[1], 40, 40);
+                $imageLocation = $this->savePadSignature($decryptedInput[$key], $decryptedInput['name']);
+                $decryptedInput[$key] = $imageLocation['filename'];
+                $pdf->Image($imageLocation['full_path'], $position[0], $position[1], 38, 38);
             } else {
                 $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
-                $pdf->Write(0, $this->convertIso($formInput[$key]));
+                $pdf->Write(0, $this->convertIso($decryptedInput[$key]));
             }
         }
+        return $decryptedInput['sign'];
     }
 
     private function savePadSignature($padSignature, $name)
     {
-        $folderPath = storage_path('app/private/attachments/');
-        $image_parts = explode(";base64,", $padSignature);
+        try {
+            // Define o caminho relativo (dentro do storage)
+            $folderPath = 'attachments/';
 
-        $image_type_aux = explode("data:image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
+            // Verifica e cria o diretório se não existir
+            if (!Storage::disk('local')->exists($folderPath)) {
+                Storage::disk('local')->makeDirectory($folderPath);
+            }
 
-        $image_base64 = base64_decode($image_parts[1]);
-        $file = $folderPath . $name . '-assinatura.' . $image_type;
+            // Extrai o tipo da imagem
+            $imageParts = explode(";base64,", $padSignature);
+            $imageTypeAux = explode("data:image/", $imageParts[0]);
+            $imageType = $imageTypeAux[1] ?? 'png'; // Default para PNG se não detectar
 
-        $padSignature = file_put_contents($file, $image_base64);
-        if ($padSignature === false) {
-            throw new \RuntimeException('Failed to save the image');
+            // Decodifica a imagem
+            $image_base64 = base64_decode($imageParts[1]);
+            if ($image_base64 === false) {
+                throw new \RuntimeException('Falha ao decodificar a imagem base64');
+            }
+
+            // Gera um nome de arquivo seguro
+            $filename = Str::slug($name) . '-assinatura.' . $imageType;
+            $relativePath = $folderPath . $filename;
+
+            // Salva usando o Storage do Laravel
+            Storage::disk('local')->put($relativePath, $image_base64);
+
+            return [
+                'full_path' => storage_path('app/private/' . $relativePath),
+                'filename' => $filename,
+                'relative_path' => $relativePath
+            ];
+        } catch (\Exception $e) {
+            Log::error('Erro ao salvar assinatura: ' . $e->getMessage());
+            throw new \RuntimeException('Erro ao salvar a assinatura: ' . $e->getMessage());
         }
-
-        return $file;
     }
 
-    private array $positions = [
+    private function convertIso($string): string
+    {
+        return iconv(mb_detect_encoding($string, mb_detect_order(), true), "ISO-8859-1", $string);
+    }
+
+    private array $PDFpositions = [
         'name' => [37, 46],
         'docRG' => [88, 56],
         'docCPF' => [35, 66],
