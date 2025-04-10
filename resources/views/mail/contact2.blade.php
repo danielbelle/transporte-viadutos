@@ -30,8 +30,8 @@
           <p>Este é um e-mail preenchido automaticamente pelo(a)
             estudante(a):
             <strong>
-              @if (session('result'))
-                {{ session('result.name') }}.
+              @if (session('process'))
+                {{ session('process.name') }}.
               @endif
             </strong>
           </p>
@@ -58,15 +58,15 @@
           <p>Uma cópia deste e-mail foi enviada para o(a) estudante(a)
             e/ou aos responsáveis no endereço eletrônico a seguir
             <strong>
-              @if (session('result'))
-                {{ session('result.email') }}.
+              @if (session('process'))
+                {{ session('process.email') }}.
               @endif
             </strong>
           </p>
 
           <p>Atenciosamente,
-            @if (session('result'))
-              {{ session('result.name') }}.
+            @if (session('process'))
+              {{ session('process.name') }}.
             @endif
           </p>
         </div>
@@ -84,11 +84,11 @@
             <div class="w-full md:w-1/2">
               <div
                 class="border-2 border-gray-200 rounded-lg p-4 flex justify-center items-center bg-gray-50">
-                @if (session('result'))
+                @if (session('process'))
                   <?php $img = URL::temporarySignedRoute(
                       'show.attachment',
                       now()->addHours(1), // Link timer
-                      ['filename' => session('result.sign')],
+                      ['filename' => session('process.sign')],
                   ); ?>
                   <a href="{{ $img }}" target="_blank">
                     <img src="{{ $img }}" alt="Assinatura"
@@ -110,12 +110,12 @@
                     Clique no botão abaixo para baixar o documento
                   </p>
 
-                  @if (session('result'))
+                  @if (session('process'))
                     <div class="flex justify-center items-center">
                       <a href="{{ URL::temporarySignedRoute(
                           'show.attachment',
                           now()->addHours(1), // Link timer
-                          ['filename' => session('result.outputPath')],
+                          ['filename' => session('process.outputPath')],
                       ) }}"
                         target="_blank"
                         class="px-6 py-3 bg-blue-600 text-black font-medium rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">

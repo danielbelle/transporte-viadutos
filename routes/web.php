@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\InputController;
-use App\Http\Controllers\ShowAttachedController;
+use App\Http\Controllers\AttachedController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,4 +15,4 @@ Route::get('/email', function () {
     return view('mail.contact2');
 })->name('emailPreview');
 
-Route::get('/attachment/{filename}', [ShowAttachedController::class, 'showAttachedFiles'])->name('show.attachment')->middleware('signed');
+Route::get('/attachment/{filename}', [AttachedController::class, 'showAttachedFiles'])->name('show.attachment')->middleware('signed');

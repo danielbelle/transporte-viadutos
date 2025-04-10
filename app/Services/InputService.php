@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
+
 class InputService
 {
     public function processInput(array $encryptedData)
@@ -95,7 +96,7 @@ class InputService
             if ($key == 'sign') {
                 $imageLocation = $this->savePadSignature($decryptedInput[$key], $decryptedInput['name']);
                 $decryptedInput[$key] = $imageLocation['filename'];
-                $pdf->Image($imageLocation['full_path'], $position[0], $position[1], 38, 38);
+                $pdf->Image($imageLocation['full_path'], $position[0], $position[1], 44, 18);
             } else {
                 $pdf->SetXY($position[0], $position[1]); // Position (x,y in mm)
                 $pdf->Write(0, $this->convertIso($decryptedInput[$key]));
@@ -144,7 +145,7 @@ class InputService
         }
     }
 
-    private function convertIso($string): string
+    private function convertIso($string)
     {
         return iconv(mb_detect_encoding($string, mb_detect_order(), true), "ISO-8859-1", $string);
     }
@@ -159,7 +160,7 @@ class InputService
         'month' => [101, 124],
         'timesInMonth' => [170, 124],
         'city' => [125, 134],
-        'sign' => [86, 140],
+        'sign' => [86, 150],
         'signatureName' => [91, 170],
     ];
 }

@@ -47,7 +47,7 @@ class InputRequest extends FormRequest
         ]; */
     }
 
-    public function getEncryptedData()
+    public function getInputAndEncryptData()
     {
 
         $arrayEncrypted = [];

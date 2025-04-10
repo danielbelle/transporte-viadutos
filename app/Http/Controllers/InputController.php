@@ -18,16 +18,21 @@ class InputController extends Controller
         return view('home');
     }
 
-    public function processInput(InputRequest $request): RedirectResponse
+    public function processInput(InputRequest $request)
     {
-        $encryptedData = $request->getEncryptedData();
+        $encryptedData = $request->getInputAndEncryptData();
 
+        return $this->systemResult($encryptedData);
+    }
+
+    private function systemResult($encryptedData)
+    {
         try {
             $result = $this->inputService->processInput($encryptedData);
-            return redirect()->route('emailPreview')->with('result', $result);
+            return redirect()->route('emailPreview')->with('process', $result);
         } catch (\RuntimeException $e) {
             return redirect()->back()->withErrors([
-                'error' => 'Failed to process input data: ' . $e->getMessage(),
+                'error' => 'Erro no processo dos dados cadastrados no formulário: ' . $e->getMessage(),
             ]);
         }
     }
