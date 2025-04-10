@@ -9,15 +9,18 @@
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
-      <div class="text-sm font-medium ml-3 text-white">Enviado com Sucesso. Você vai receber uma cópia no seu e-mail:
+      <div class="text-sm font-medium ml-3 text-white">Enviado com Sucesso. Você vai receber uma
+        cópia no seu e-mail:
         email</div>
     </div>
     <div class="text-sm tracking-wide text-white mt-4 sm:mt-0 sm:ml-4">
       {{ session('success') }}</div>
     <div
       class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </div>
   </div>
@@ -183,7 +186,8 @@
 
       <div class="p-2 w-1/3">
         <div class="relative">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 mr-2 fill-gray inline" viewBox="0 0 32 32">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 mr-2 fill-gray inline"
+            viewBox="0 0 32 32">
             <path
               d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
               data-original="#000000" />
@@ -202,17 +206,20 @@
         @enderror
       </div>
 
-      <div class="p-2 w-100">
+      <div class="p-2 w-full">
         @error('sign')
           <div class="text-red-500 text-sm mt-1">
             {{ $message }}
           </div>
         @enderror
-        <p class="leading-7 text-sm text-gray-600">Desenhe a sua assinatura com o mouse</p>
-        <x-creagia-signature-pad id='sign' name='sign' border-color="#9a9a9a"
-          pad-classes="rounded-xl border-2 bg-transparent sm:w-100 sm:h-100"
-          button-classes="py-2 mt-4 mx-auto text-white bg-indigo-500 border-0 px-4 focus:outline-none hover:bg-indigo-600 rounded text-md"
-          clear-name="Limpar Assinatura" submit-name='Enviar' :disabled-without-signature="true" />
+        <div class="block items-center justify-center">
+          <p class="leading-7 text-sm text-gray-600 px-auto p-1">Desenhe a sua
+            assinatura com o mouse</p>
+          <x-creagia-signature-pad id='sign' name='sign' border-color="#9a9a9a"
+            pad-classes="rounded-xl border-2 bg-transparent sm:w-100 sm:h-100"
+            button-classes="py-2 mt-4 mx-auto text-white bg-indigo-500 border-0 px-4 focus:outline-none hover:bg-indigo-600 rounded text-md"
+            clear-name="Limpar Assinatura" submit-name='Enviar' :disabled-without-signature="true" />
+        </div>
       </div>
 
       <div class="p-2 w-1/3 hidden">

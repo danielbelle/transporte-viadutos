@@ -15,13 +15,13 @@ Route::get('/email', function () {
     return view('mail.contact2');
 })->name('emailPreview');
 
-Route::get('/private-image/{filename}', function ($filename) {
+Route::get('/private-attachment/{filename}', function ($filename) {
     // Verificar token na URL
     if (!request()->hasValidSignature()) {
         abort(403, 'URL inválida ou expirada');
     }
     // Verificar se é uma extensão de imagem permitida
-    $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf'];
     $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
     if (!in_array($extension, $allowed)) {
@@ -36,4 +36,4 @@ Route::get('/private-image/{filename}', function ($filename) {
     }
 
     return response()->file(storage_path("app/private/attachments/{$path}"));
-})->name('private.image')->middleware('signed');
+})->name('private.attachment')->middleware('signed');

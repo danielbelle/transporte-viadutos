@@ -13,11 +13,11 @@
 
   <section class="text-gray-600 body-font relative">
     <div class="container px-5 py-10 mx-auto">
-
-      <div class="flex flex-col text-center w-full mb-6">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+      <div class="lg:w-2/3 mx-auto p-4">
+        <h1
+          class="sm:text-3xl lg:w-2/3 mx-auto text-2xl font-medium title-font mb-4 text-gray-900 text-center">
           Email Enviado do Auxílio Transporte</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base mb-4">Município de
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-center mb-4 ">Município de
           Viadutos-RS para quem vai de <b>VEÍCULO PRÓPRIO</b>.</p>
       </div>
 
@@ -25,102 +25,96 @@
         <div
           class="flex flex-wrap w-full cursor-default bg-gray-100 bg-opacity-50 rounded-lg border
           border-gray-400 text-base outline-none text-gray-800 py-10 px-5 leading-8">
-          <div class="">
-            <p>Olá, equipe da Prefeitura Municipal de Viadutos.</p>
+          <p>Olá, equipe da Prefeitura Municipal de Viadutos.</p>
 
-            <p>Este é um e-mail preenchido automaticamente pelo(a)
-              estudante(a):
-              <strong>
-                @if (session('result'))
-                  {{ session('result.name') }}
-                @endif
-              </strong>.
-            </p>
-
-            <p>No mesmo contém o anexo da Declaração do auxílio transporte, previsto na
-              Lei Municipal nº 2.721/2011
-              alterado pela Lei Municipal nº 3.647/2025. </p>
-
-            <p>Uma cópia deste e-mail foi enviada para o(a) estudante(a)
-              e/ou aos responsáveis no endereço eletrônico a seguir:
-              Email:
-              <strong>
-                @if (session('result'))
-                  {{ 'result.email' }}
-                @endif
-              </strong>.
-            </p>
-
-            <p>Atenciosamente,
+          <p>Este é um e-mail preenchido automaticamente pelo(a)
+            estudante(a):
+            <strong>
               @if (session('result'))
-                {{ 'result.name' }}
+                {{ session('result.name') }}.
               @endif
-              .
-            </p>
-          </div>
+            </strong>
+          </p>
+
+          <p>No mesmo contém o anexo da Declaração do auxílio transporte, previsto na
+            Lei Municipal nº 2.721/2011
+            alterado pela Lei Municipal nº 3.647/2025. </p>
+
+          <p>Uma cópia deste e-mail foi enviada para o(a) estudante(a)
+            e/ou aos responsáveis no endereço eletrônico a seguir:
+            Email:
+            <strong>
+              @if (session('result'))
+                {{ session('result.email') }}.
+              @endif
+            </strong>
+          </p>
+
+          <p>Atenciosamente,
+            @if (session('result'))
+              {{ session('result.name') }}.
+            @endif
+          </p>
         </div>
       </div>
 
-      <div class="flex flex-col text-center w-full mb-6">
+      <div class="lg:w-2/3 mx-auto p-4">
+        <div
+          class="mx-auto bg-white shadow-md overflow-hidden w-full cursor-default rounded-lg text-base outline-none text-gray-800 py-10 px-5 leading-8 justify-center text-center">
 
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base mb-4">Deseja baixar os documentos e a
-          sua assinatura?
-        </p>
-        <div class="container mx-auto px-4 py-8">
-          <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6">
-              <h1 class="text-2xl font-bold text-gray-800 mb-6">Visualização de Documento</h1>
+          <h1 class="text-2xl font-bold text-gray-800">Baixar a
+            sua assinatura e o documentos assinado</h1>
 
-              <div class="flex flex-col md:flex-row gap-8">
-                <!-- Área da Imagem -->
-                <div class="w-full md:w-1/2">
-                  <h2 class="text-lg font-semibold text-gray-700 mb-3">Visualização</h2>
-                  <div
-                    class="border-2 border-gray-200 rounded-lg p-4 flex justify-center items-center bg-gray-50">
-                    @if (session('result'))
-                      <img
-                        src="{{ URL::temporarySignedRoute(
-                            'private.image',
-                            now()->addHours(1), // Link válido por 2 horas
-                            ['filename' => session('result.sign')],
-                        ) }}"
-                        alt="Assinatura" class="max-w-full h-auto rounded-lg shadow-md">
-                    @else
-                      <p class="text-gray-500">Nenhuma imagem disponível</p>
-                    @endif
-                  </div>
-                </div>
+          <div class="flex flex-col md:flex-row gap-8">
+            <!-- Área da Imagem -->
+            <div class="w-full md:w-1/2">
+              <div
+                class="border-2 border-gray-200 rounded-lg p-4 flex justify-center items-center bg-gray-50">
+                @if (session('result'))
+                  <img
+                    src="{{ URL::temporarySignedRoute(
+                        'private.attachment',
+                        now()->addHours(1), // Link timer
+                        ['filename' => session('result.sign')],
+                    ) }}"
+                    alt="Assinatura" class="max-w-full h-auto rounded-lg shadow-md">
+                @else
+                  <p class="text-gray-500">Nenhuma imagem disponível</p>
+                @endif
+              </div>
+            </div>
 
-                <!-- Área de Download -->
-                <div class="w-full md:w-1/2">
-                  <h2 class="text-lg font-semibold text-gray-700 mb-3">Arquivo para Download</h2>
-                  <div class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50">
-                    <div class="flex flex-col items-center justify-center h-full">
+            <!-- Área de Download -->
+            <div class="w-full md:w-1/2">
+              <h2 class="text-lg font-semibold text-gray-700 mb-3">Arquivo para Download</h2>
+              <div class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50">
+                <div class="flex flex-col items-center justify-center h-full">
 
-                      <p class="text-gray-600 mb-4 text-center">
-                        Clique no botão abaixo para baixar o documento
-                      </p>
+                  <p class="text-gray-600 mb-4 text-center">
+                    Clique no botão abaixo para baixar o documento
+                  </p>
 
-                      @if (session('result'))
-                        class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">
+                  @if (session('result'))
+                    <div class="flex justify-center items-center">
+                      <a href="{{ URL::temporarySignedRoute(
+                          'private.attachment',
+                          now()->addHours(1), // Link timer
+                          ['filename' => session('result.outputPath')],
+                      ) }}"
+                        target="_blank" download
+                        class="px-6 py-3 bg-blue-600 text-black font-medium rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2"
                           viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd"
                             d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                             clip-rule="evenodd" />
                         </svg>
-                        Baixar Documento
-                        </a>
-                        <p class="text-sm text-gray-500 mt-2">
-                          Tamanho:
-
-                          KB
-                        </p>
-                      @else
-                        <p class="text-red-500">Arquivo não disponível para download</p>
-                      @endif
+                        <span>Baixar Documento</span>
+                      </a>
                     </div>
-                  </div>
+                  @else
+                    <p class="text-red-500">Arquivo não disponível para download</p>
+                  @endif
                 </div>
               </div>
 
@@ -133,11 +127,11 @@
               </div>
             </div>
           </div>
+
+
+
         </div>
-
       </div>
-
-    </div>
 
   </section>
   <footer class="text-gray-600 body-font">

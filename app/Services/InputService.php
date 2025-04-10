@@ -15,7 +15,6 @@ class InputService
 {
     public function processInput(array $encryptedData)
     {
-        $processResult = '';
         try {
             $decryptedInput = [];
 
@@ -56,7 +55,8 @@ class InputService
         $decryptedInput['sign'] = $this->setText($pdf, $decryptedInput);
 
         // Output the modified PDF
-        $outputPath = storage_path('app/private/attachments/transporte-carro-' . explode(' ', $decryptedInput['name'])[0] . '.pdf');
+        $outputPathAux = 'transporte-carro-' . explode(' ', $decryptedInput['name'])[0] . '.pdf';
+        $outputPath = storage_path('app/private/attachments/' . $outputPathAux);
         $pdf->Output($outputPath, 'F');
 
         response()->download($outputPath);
@@ -73,8 +73,8 @@ class InputService
 
         //Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
 
-        $processResult = $decryptedInput;
-
+        $decryptedInput['outputPath'] = $outputPathAux;
+        $processResult =  $decryptedInput;
         return $processResult;
     }
 
