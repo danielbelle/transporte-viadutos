@@ -39,7 +39,7 @@
           <p>No mesmo contém o anexo da Declaração do auxílio transporte, previsto na
             <a href="{{ URL::temporarySignedRoute(
                 'show.attachment',
-                now()->addHours(1), // Link timer
+                now()->addMinutes(10), // Link timer
                 ['filename' => 'Lei-n-2.721-2011-atualizada.pdf'],
             ) }}"
               target="_blank"
@@ -47,7 +47,7 @@
               Municipal nº 2.721/2011</a> alterado pela <a
               href="{{ URL::temporarySignedRoute(
                   'show.attachment',
-                  now()->addHours(1), // Link timer
+                  now()->addMinutes(10), // Link timer
                   ['filename' => 'Lei-n-3.647-2025.pdf'],
               ) }}"
               target="_blank"
@@ -87,7 +87,7 @@
                 @if (session('process'))
                   <?php $img = URL::temporarySignedRoute(
                       'show.attachment',
-                      now()->addHours(1), // Link timer
+                      now()->addMinutes(10), // Link timer
                       ['filename' => session('process.sign')],
                   ); ?>
                   <a href="{{ $img }}" target="_blank">
@@ -114,7 +114,7 @@
                     <div class="flex justify-center items-center">
                       <a href="{{ URL::temporarySignedRoute(
                           'show.attachment',
-                          now()->addHours(1), // Link timer
+                          now()->addMinutes(10), // Link timer
                           ['filename' => session('process.outputPath')],
                       ) }}"
                         target="_blank"
