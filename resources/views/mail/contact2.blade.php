@@ -37,12 +37,26 @@
           </p>
 
           <p>No mesmo contém o anexo da Declaração do auxílio transporte, previsto na
-            Lei Municipal nº 2.721/2011
-            alterado pela Lei Municipal nº 3.647/2025. </p>
+            <a href="{{ URL::temporarySignedRoute(
+                'show.attachment',
+                now()->addHours(1), // Link timer
+                ['filename' => 'Lei-n-2.721-2011-atualizada.pdf'],
+            ) }}"
+              target="_blank"
+              class="rounded-lg transition duration-300 items-center font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Lei
+              Municipal nº 2.721/2011</a> alterado pela <a
+              href="{{ URL::temporarySignedRoute(
+                  'show.attachment',
+                  now()->addHours(1), // Link timer
+                  ['filename' => 'Lei-n-3.647-2025.pdf'],
+              ) }}"
+              target="_blank"
+              class="rounded-lg transition duration-300 items-center font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
+              Lei Municipal nº 3.647/2025</a>.
+          </p>
 
           <p>Uma cópia deste e-mail foi enviada para o(a) estudante(a)
-            e/ou aos responsáveis no endereço eletrônico a seguir:
-            Email:
+            e/ou aos responsáveis no endereço eletrônico a seguir
             <strong>
               @if (session('result'))
                 {{ session('result.email') }}.
@@ -71,13 +85,15 @@
               <div
                 class="border-2 border-gray-200 rounded-lg p-4 flex justify-center items-center bg-gray-50">
                 @if (session('result'))
-                  <img
-                    src="{{ URL::temporarySignedRoute(
-                        'private.attachment',
-                        now()->addHours(1), // Link timer
-                        ['filename' => session('result.sign')],
-                    ) }}"
-                    alt="Assinatura" class="max-w-full h-auto rounded-lg shadow-md">
+                  <?php $img = URL::temporarySignedRoute(
+                      'show.attachment',
+                      now()->addHours(1), // Link timer
+                      ['filename' => session('result.sign')],
+                  ); ?>
+                  <a href="{{ $img }}" target="_blank">
+                    <img src="{{ $img }}" alt="Assinatura"
+                      class="max-w-full h-auto rounded-lg shadow-md">
+                  </a>
                 @else
                   <p class="text-gray-500">Nenhuma imagem disponível</p>
                 @endif
@@ -97,11 +113,11 @@
                   @if (session('result'))
                     <div class="flex justify-center items-center">
                       <a href="{{ URL::temporarySignedRoute(
-                          'private.attachment',
+                          'show.attachment',
                           now()->addHours(1), // Link timer
                           ['filename' => session('result.outputPath')],
                       ) }}"
-                        target="_blank" download
+                        target="_blank"
                         class="px-6 py-3 bg-blue-600 text-black font-medium rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2"
                           viewBox="0 0 20 20" fill="currentColor">

@@ -11,17 +11,17 @@ class InputRequest extends FormRequest
     {
         return [
 
-            'name' => 'required',
-            'email' => 'required',
-            'docRG' => 'required',
-            'docCPF' => 'required',
-            'period' => 'required', // matutino, vespertino, noturno, integral
-            'institution' => 'required', // verificar se algum valor n entra nulo, se n quebra programa
-            'course' => 'required',
-            'month' => 'required',
-            'timesInMonth' => 'required',
-            'city' => 'required',
-            'phone' => 'required',
+            'name' => '',
+            'email' => '',
+            'docRG' => '',
+            'docCPF' => '',
+            'period' => '', // matutino, vespertino, noturno, integral
+            'institution' => '', // verificar se algum valor n entra nulo, se n quebra programa
+            'course' => '',
+            'month' => '',
+            'timesInMonth' => '',
+            'city' => '',
+            'phone' => '',
             'sign' => '',
             'signatureName' => '',
             'inputDocument' => '', // 10MB
@@ -53,7 +53,7 @@ class InputRequest extends FormRequest
         $arrayEncrypted = [];
 
         foreach ($this->rules() as $key => $value) {
-            $arrayEncrypted[$key] = $this->encryptAndValidate($key);
+            $arrayEncrypted[$key] = $this->encryptAndValidate($key) ?? '';
         }
 
         return $arrayEncrypted;
@@ -62,6 +62,6 @@ class InputRequest extends FormRequest
     private function encryptAndValidate(string $data): string
     {
 
-        return Crypt::encryptString($this->validated()[$data]);
+        return Crypt::encryptString($this->validated()[$data]) ?? '';
     }
 }
