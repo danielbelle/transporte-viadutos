@@ -29,18 +29,18 @@
 
           <p>Este é um e-mail preenchido automaticamente pelo(a)
             estudante(a):
-            <strong>
-              @if (session('process'))
-                {{ session('process.name') }}.
-              @endif
-            </strong>
+
+            @if (session('process'))
+              <strong>{{ session('process.name') }}</strong>.
+            @endif
+
           </p>
 
           <p>No mesmo contém o anexo da Declaração do auxílio transporte, previsto na
             <a href="{{ URL::temporarySignedRoute(
                 'show.attachment',
                 now()->addMinutes(10), // Link timer
-                ['filename' => 'Lei-n-2.721-2011-atualizada.pdf'],
+                ['filename' => $_ENV['PDF_LEI_2011_ATUALIZADA']],
             ) }}"
               target="_blank"
               class="rounded-lg transition duration-300 items-center font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Lei
@@ -48,7 +48,7 @@
               href="{{ URL::temporarySignedRoute(
                   'show.attachment',
                   now()->addMinutes(10), // Link timer
-                  ['filename' => 'Lei-n-3.647-2025.pdf'],
+                  ['filename' => $_ENV['PDF_LEI_2025']],
               ) }}"
               target="_blank"
               class="rounded-lg transition duration-300 items-center font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
@@ -57,11 +57,10 @@
 
           <p>Uma cópia deste e-mail foi enviada para o(a) estudante(a)
             e/ou aos responsáveis no endereço eletrônico a seguir
-            <strong>
-              @if (session('process'))
-                {{ session('process.email') }}.
-              @endif
-            </strong>
+
+            @if (session('process'))
+              <strong>{{ session('process.email') }}</strong>.
+            @endif
           </p>
 
           <p>Atenciosamente,
