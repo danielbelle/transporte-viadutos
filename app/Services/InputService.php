@@ -95,7 +95,7 @@ class InputService
         }
 
 
-        //Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
+        Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
 
         $decryptedInput['outputPath'] = $outputPathAux;
         return $decryptedInput;

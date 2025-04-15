@@ -2,8 +2,9 @@
     "version": 2,
     "framework": null,
     "functions": {
-        "api/index.php": { "runtime": "vercel-php@0.1.0" }
+        "api/index.php": { "runtime": "vercel-php@0.7.1" }
     },
+    "regions": ["brazil", "sao-paulo", "brazil-south"],
     "routes": [
         {
             "src": "/(css|js|vendor|assets|build)/(.*)",
@@ -20,8 +21,8 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_KEY": "base64:YOUR_APP_KEY",
-        "APP_DEBUG": "true",
+        "APP_KEY": "base64:K2Mqo58EM7gKaV/X0qib97CKlEdv9iK+GefsSroTV34=",
+        "APP_DEBUG": "false",
         "APP_URL": "https://transporte-viadutos.vercel.app",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
