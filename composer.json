@@ -42,7 +42,6 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "mkdir -p ./bootstrap/cache/",
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
@@ -61,6 +60,10 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "build": [
+            "@composer --no-plugins --no-interaction install --no-scripts --no-dev",
+            "@composer --no-plugins --no-interaction archive"
         ]
     },
     "extra": {
@@ -78,5 +81,8 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts-descriptions": {
+        "build": "Build project artifact."
+    }
 }
