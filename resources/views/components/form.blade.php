@@ -34,7 +34,6 @@
 
 <form method="POST" autocomplete="off" action="{{ route('process.input') }}">
 
-  <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
   <div class="lg:w-100
   mx-auto">
