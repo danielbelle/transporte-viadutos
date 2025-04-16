@@ -33,9 +33,10 @@
 @endif
 
 <form method="POST" autocomplete="off" action="{{ route('process.input') }}">
-  @csrf
 
-  <div class="lg:w-100 md:w-2/3
+  <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+  <div class="lg:w-100
   mx-auto">
     <div class="flex flex-wrap">
 
