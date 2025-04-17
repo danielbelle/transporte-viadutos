@@ -3,15 +3,15 @@ FROM node:18 as frontend
 
 WORKDIR /app
 
-# 1. Copy only essential files first
+# 1. Copy essential files
 COPY package.json package-lock.json ./
 
-# 2. Installation with cache cleaning and fallbacks
+# 2. Copy config files (vite, tailwind, postcss)
+COPY vite.config.js tailwind.config.js postcss.config.js ./
+
+# 3. Installation with cache cleaning and fallbacks
 RUN npm cache clean --force && \
     npm install --no-audit --legacy-peer-deps
-
-# 3. Copy remaining config files
-COPY vite.config.js tailwind.config.js postcss.config.js ./
 
 # 4. Copy resources
 COPY resources ./resources
@@ -31,6 +31,9 @@ RUN ls -la /app/public/build/
 
 # Stage 2: Build PHP image
 FROM php:8.2-fpm as backend
+
+# Adjust PHP-FPM to listen on localhost
+RUN sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 127.0.0.1:9000|' /usr/local/etc/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
 
@@ -77,7 +80,6 @@ RUN composer install --optimize-autoloader --no-dev --no-interaction
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
 
 # Copy config files
 COPY nginx.conf /etc/nginx/sites-available/default
