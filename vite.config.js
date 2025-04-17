@@ -22,8 +22,8 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 assetFileNames: "build/assets/[name]-[hash][extname]",
-                input: "resources/js/app.js",
             },
+            input: "resources/js/app.js",
         },
     },
 });

@@ -64,11 +64,11 @@
             "rm -rf node_modules package-lock.json",
             "npm install --legacy-peer-deps",
             "npm install --package-lock-only",
-            "npm run build"
+            "npm run build",
+            "  composer install --no-dev --optimize-autoloader"
         ],
         "comando": [
-            "npm uninstall @tailwindcss/postcss",
-            "npm install tailwindcss@^3.4.1"
+            "npm install && npm run build && php artisan config:cache && php artisan route:cache"
         ]
     },
     "extra": {
