@@ -2,17 +2,25 @@
 FROM node:18 as frontend
 
 WORKDIR /app
-COPY package.json package-lock.json ./
+# 2. Instalação robusta com fallback
+RUN npm ci --no-audit --prefer-offline || \
+    (echo "Fallback to npm install" && npm install --no-audit)
 
-# Instale as dependências
-RUN npm ci --no-audit
-
-# Agora copie os outros arquivos de configuração
+# 3. Copie o resto dos arquivos de configuração
 COPY vite.config.js tailwind.config.js postcss.config.js ./
+
+# 4. Copie os recursos
 COPY resources ./resources
 
-# Execute o build
-RUN npm run build || (echo "Build failed! Contents of /app:" && ls -la && exit 1)
+# 5. Build com verificação de erro detalhada
+RUN npm run build || \
+    (echo "Build failed! Debug info:" && \
+     echo "Node version: $(node -v)" && \
+     echo "NPM version: $(npm -v)" && \
+     echo "Contents: $(ls -la)" && \
+     exit 1)
+
+# 6. Verifique os arquivos gerados
 RUN ls -la /app/public/build/
 
 # Stage 2: Build PHP image
