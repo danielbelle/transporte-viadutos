@@ -89,7 +89,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 8000
-# Remova o supervisord CMD e mantenha só o artisan
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+RUN mkdir -p /var/log/supervisor /var/log/nginx
+RUN touch /var/log/nginx/error.log /var/log/nginx/access.log
 
+EXPOSE 8000
+
+# Change the CMD to:
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"]
