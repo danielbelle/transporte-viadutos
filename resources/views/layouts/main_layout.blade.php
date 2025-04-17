@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Transporte Viadutos</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+  <script src="{{ asset('build/assets/app.js') }}"></script>
 </head>
 
 <body>
@@ -40,6 +42,7 @@
     </div>
 
   </section>
+
 
   <script src="{{ asset('vendor/sign-pad/sign-pad.min.js') }}"></script>
 

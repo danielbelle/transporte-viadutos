@@ -13,4 +13,14 @@ export default defineConfig({
         emptyOutDir: true,
     },
     publicDir: false,
+    server: {
+        https: true, // Força HTTPS no desenvolvimento
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                assetFileNames: "build/assets/[name]-[hash][extname]",
+            },
+        },
+    },
 });
