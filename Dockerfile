@@ -3,7 +3,6 @@ FROM node:18 as frontend
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-COPY resources /app/resources/
 
 # Instale as dependências
 RUN npm ci --no-audit
@@ -13,8 +12,8 @@ COPY vite.config.js tailwind.config.js postcss.config.js ./
 COPY resources ./resources
 
 # Execute o build
-RUN npm run build && \
-    ls -la /app/public/build/
+RUN npm run build || (echo "Build failed! Contents of /app:" && ls -la && exit 1)
+RUN ls -la /app/public/build/
 
 # Stage 2: Build PHP image
 FROM php:8.2-fpm as backend
