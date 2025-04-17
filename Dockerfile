@@ -12,7 +12,7 @@ FROM php:8.2-fpm as backend
 
 WORKDIR /var/www/html
 
-# Install system dependencies
+# Install system dependencies (keep existing)
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -24,32 +24,37 @@ RUN apt-get update && apt-get install -y \
     nginx \
     supervisor
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# Install PHP extensions (REMOVE pdo_mysql)
+RUN docker-php-ext-install mbstring exif pcntl bcmath gd
 
-# Install Composer
+# Install Composer (keep existing)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel files (excluding .env in production)
+# Copy Laravel files (keep existing)
 COPY . .
 
-# Copy built frontend assets from Stage 1
+# Copy built frontend assets (keep existing)
 COPY --from=frontend /app/public/build /var/www/html/public/build
 
-# Create .env from example if it doesn't exist
+# Create minimal .env with required DB config
 RUN if [ ! -f .env ]; then \
         cp .env.example .env; \
-        echo "APP_KEY=" >> .env; \
+        echo "DB_CONNECTION=null" >> .env; \
+        echo "CACHE_DRIVER=array" >> .env; \
+        echo "SESSION_DRIVER=array" >> .env; \
     fi
 
-# Install Composer dependencies (no-dev for production)
+# Force null database connection in config
+RUN echo "<?php return ['default' => null, 'connections' => []];" > config/database.php
+
+# Install Composer dependencies (keep existing)
 RUN composer install --optimize-autoloader --no-dev
 
-# Set permissions
+# Set permissions (keep existing)
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Copy config files
+# Copy config files (keep existing)
 COPY nginx.conf /etc/nginx/sites-available/default
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
