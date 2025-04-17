@@ -2,10 +2,12 @@
 FROM node:18 as frontend
 
 WORKDIR /app
-COPY package.json vite.config.js /app/
+COPY package.json package-lock.json vite.config.js tailwind.config.js postcss.config.js /app/
 COPY resources /app/resources/
 
-RUN npm install && npm run build
+RUN npm ci --no-audit && \
+    npm run build && \
+    ls -la /app/public/build/  # Verifique se os arquivos foram gerados
 
 # Stage 2: Build PHP image
 FROM php:8.2-fpm as backend
