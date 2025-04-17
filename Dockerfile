@@ -30,11 +30,17 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel files
+# Copy Laravel files (excluding .env)
 COPY . .
 
 # Copy built frontend assets from Stage 1
 COPY --from=frontend /app/public/build /var/www/html/public/build
+
+# Create .env if it doesn't exist (with placeholder key)
+RUN if [ ! -f .env ]; then \
+        cp .env.example .env && \
+        sed -i 's/APP_KEY=/APP_KEY=base64:tempkey_replace_this_in_render_dashboard/' .env; \
+    fi
 
 # Install Composer dependencies (no-dev for production)
 RUN composer install --optimize-autoloader --no-dev
@@ -46,9 +52,6 @@ RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 # Copy config files
 COPY nginx.conf /etc/nginx/sites-available/default
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Generate Laravel key (if not set in Render's env)
-RUN php artisan key:generate --no-interaction --force
 
 EXPOSE 8000
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
