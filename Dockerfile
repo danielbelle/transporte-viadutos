@@ -17,12 +17,13 @@ COPY vite.config.js tailwind.config.js postcss.config.js ./
 COPY resources ./resources
 
 # 5. Build with robust error checking
-RUN npm run build || \
+RUN npm run build --verbose || \
     (echo "Build failed! Debug info:" && \
      echo "Node: $(node -v)" && \
      echo "NPM: $(npm -v)" && \
      echo "Files: $(ls -la)" && \
      echo "Resources content: $(ls -la resources/)" && \
+     cat /app/npm-debug.log || true && \
      exit 1)
 
 # 6. Verify generated files

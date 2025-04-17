@@ -66,8 +66,9 @@
             "npm install --package-lock-only",
             "npm run build"
         ],
-        "postcss": [
-            "npm install -D @tailwindcss/postcss"
+        "comando": [
+            "npm uninstall @tailwindcss/postcss",
+            "npm install tailwindcss@^3.4.1"
         ]
     },
     "extra": {
