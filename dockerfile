@@ -1,7 +1,6 @@
-# Usa a imagem base do PHP 8.2 + Apache (conforme seu composer.json)
 FROM php:8.2-apache
 
-# Instala dependências do sistema e extensões PHP necessárias
+# 1. Instala dependências ESSENCIAIS
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -14,25 +13,23 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
     && a2enmod rewrite
 
-# Instala o Composer globalmente (Método oficial)
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# 2. Instalação À PROVA DE FALHAS do Composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin \
+    --filename=composer \
+    --version=2.7.1
 
-# Define o diretório de trabalho
+# 3. Otimização do Build
 WORKDIR /var/www/html
-
-# Copia APENAS os arquivos necessários para otimizar o build (evita cache desnecessário)
-COPY composer.json composer.lock ./
+COPY composer.json composer.lock .
 RUN composer install --no-dev --no-scripts --optimize-autoloader --ignore-platform-reqs
 
-# Copia o resto do projeto
+# 4. Copia o resto da aplicação
 COPY . .
 
-# Configura permissões e gera a chave do Laravel (se .env não existir)
-RUN if [ ! -f ".env" ]; then cp .env.example .env && php artisan key:generate --force; fi \
-    && chmod -R 777 storage bootstrap/cache
-
-# Expõe a porta 80 (Apache)
+# 5. Configuração Final
+RUN chmod -R 777 storage bootstrap/cache
 EXPOSE 80
-
-# Comando para iniciar o Apache
 CMD ["apache2-foreground"]
+RUN which composer && composer --version
+ENV PATH="${PATH}:/root/.composer/vendor/bin"
