@@ -32,7 +32,7 @@
   </div>
 @endif
 
-<form method="POST" autocomplete="off" action="{{ url('/process.input') }}">
+<form method="POST" autocomplete="off" action="{{ route('process.input') }}">
   @csrf
 
   <div class="lg:w-100 md:w-2/3
