@@ -2,7 +2,7 @@
 FROM node:18 as frontend
 
 WORKDIR /app
-COPY package.json package-lock.json vite.config.js tailwind.config.js postcss.config.js /app/
+COPY package.json package-lock.json vite.config.js tailwind.config.js /app/
 COPY resources /app/resources/
 
 RUN npm ci --no-audit && \
