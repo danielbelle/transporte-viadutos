@@ -30,16 +30,16 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel files (excluding .env)
+# Copy Laravel files (excluding .env in production)
 COPY . .
 
 # Copy built frontend assets from Stage 1
 COPY --from=frontend /app/public/build /var/www/html/public/build
 
-# Create .env if it doesn't exist (with placeholder key)
+# Create .env from example if it doesn't exist
 RUN if [ ! -f .env ]; then \
-        cp .env.example .env && \
-        sed -i 's/APP_KEY=/APP_KEY=base64:tempkey_replace_this_in_render_dashboard/' .env; \
+        cp .env.example .env; \
+        echo "APP_KEY=" >> .env; \
     fi
 
 # Install Composer dependencies (no-dev for production)
