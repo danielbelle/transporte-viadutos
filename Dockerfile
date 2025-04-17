@@ -8,10 +8,7 @@ COPY package.json package-lock.json ./
 
 # 2. Installation with cache cleaning and fallbacks
 RUN npm cache clean --force && \
-    (npm ci --no-audit --prefer-offline || \
-     (echo "Fallback to clean installation" && \
-      rm -rf node_modules && \
-      npm install --no-audit --legacy-peer-deps))
+    npm install --no-audit --legacy-peer-deps
 
 # 3. Copy remaining config files
 COPY vite.config.js tailwind.config.js postcss.config.js ./
