@@ -90,4 +90,6 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 8000
+# Remova o supervisord CMD e mantenha só o artisan
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
