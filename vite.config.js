@@ -17,9 +17,12 @@ export default defineConfig({
         https: true, // Força HTTPS no desenvolvimento
     },
     build: {
+        manifest: true,
+        outDir: "public/build", // <-- ISSO É ESSENCIAL!
         rollupOptions: {
             output: {
                 assetFileNames: "build/assets/[name]-[hash][extname]",
+                input: "resources/js/app.js",
             },
         },
     },
