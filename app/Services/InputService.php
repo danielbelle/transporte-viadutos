@@ -17,7 +17,7 @@ class InputService
 {
     // separar em variaveis cada STORAGE public e private
 
-    private string $attachDir = '/attachments/';
+    private string $attachDir = 'attachments/';
     private Filesystem $publicPath;
     private Filesystem $internalPath;
 
@@ -87,6 +87,7 @@ class InputService
 
         response()->download($outputPath);
 
+        $inputDocumentPath = '';
         // get and save inputDocument
         if (isset($decryptedInput['inputDocument']) && !empty($decryptedInput['inputDocument'])) {
             $inputDocumentPath = $this->internalPath->path($this->attachDir . $_ENV['PDF_OPTIONAL_ATTACH'] . $firstName . '.pdf');
@@ -95,9 +96,15 @@ class InputService
         }
 
 
-        //Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
 
         $decryptedInput['outputPath'] = $outputPathAux;
+        /*
+        if (!empty($inputDocumentPath)) {
+            Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath, $inputDocumentPath));
+        } else {
+            Mail::to($decryptedInput['email'])->send(new ContactUs($decryptedInput, $outputPath));
+        }*/
+
         return $decryptedInput;
     }
 
