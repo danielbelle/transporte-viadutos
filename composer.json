@@ -9,11 +9,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "creagia/laravel-sign-pad": "^2.1",
+        "laravel-zero/foundation": "^11.44",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "laravellegends/pt-br-validator": "^12.0",
+        "predis/predis": "^2.0",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6"
     },
@@ -42,7 +44,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
@@ -64,6 +67,7 @@
             "@php artisan optimize:clear",
             "@php artisan optimize",
             "@php artisan migrate --force"
+
         ]
     },
     "extra": {
@@ -81,5 +85,8 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts-descriptions": {
+        "build": "Build project artifact."
+    }
 }
