@@ -22,11 +22,11 @@ class ContactUs extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($data, $attachSigned, $attachCollege)
+    public function __construct($data, $attachSigned, $attachCollege = null)
     {
         $this->data = $data;
-        $this->attachSigned = $attachSigned;
-        $this->attachCollege = $attachCollege;
+        $this->attachSigned = file_exists($attachSigned) ? $attachSigned : '';
+        $this->attachCollege = file_exists($attachCollege) ? $attachCollege : '';
     }
 
     /**
@@ -65,8 +65,8 @@ class ContactUs extends Mailable
     {
 
         return [
-            Attachment::fromPath($this->attachSigned),
-            Attachment::fromPath($this->attachCollege),
+            $this->attachSigned && file_exists($this->attachSigned) ? Attachment::fromPath($this->attachSigned) : null,
+            $this->attachCollege && file_exists($this->attachCollege) ? Attachment::fromPath($this->attachCollege) : null,
         ];
     }
 }

@@ -33,10 +33,11 @@
 @endif
 
 <form method="POST" autocomplete="off" action="{{ route('process.input') }}">
-
   @csrf
-  <div class="lg:w-100
-  mx-auto">
+
+
+  <div class="lg:w-2/3 mx-auto">
+
     <div class="flex flex-wrap">
 
       <div class="p-2 w-1/3">
@@ -216,7 +217,7 @@
           <p class="leading-7 text-sm text-gray-600 px-auto p-1">Desenhe a sua
             assinatura com o mouse</p>
           <x-creagia-signature-pad id='sign' name='sign' border-color="#9a9a9a"
-            pad-classes="rounded-xl border-2 bg-transparent sm:w-100 sm:h-100"
+            pad-classes="rounded-xl border-2 bg-transparent "
             button-classes="py-2 mt-4 mx-auto text-white bg-indigo-500 border-0 px-4 focus:outline-none hover:bg-indigo-600 rounded text-md"
             clear-name="Limpar Assinatura" submit-name='Enviar' :disabled-without-signature="true" />
         </div>
